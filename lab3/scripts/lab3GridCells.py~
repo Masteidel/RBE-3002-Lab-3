@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+import rospy, tf, numpy, math
+from kobuki_msgs.msg import BumperEvent
+from std_msgs.msg import String
+from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
+from nav_msgs.msg import GridCells
+from geometry_msgs.msg import Point
+from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Pose
+from tf.transformations import euler_from_quaternion
+
+def cellPublish():
+    pub = rospy.Publisher('gridCell', nav_msgs/GridCells.msg, queue_size=10)
+    rospy.init_node('cellPublish', anonymous=True)
+    rate = rospy.Rate(10) # 10hz
+
+
+
+    while not rospy.is_shutdown():
+        #create header:
+        head = header()
+        head.seq = seqNum
+        seqNum++
+        head.stamp = rospy.get_rostime()
+        head.frame_id = "map"
+
+        points = pointList()#get the points
+        rate.sleep()
+
+def pointList():
+    points = []
+    for i in range(0, 10):
+        points.append(randPoints())
+    return points
+
+def randPoints():
+    random.seed(a=None)
+    msg = Point()
+    msg.x = random.randon()*500
+    msg.y = randon.randon()*500
+    msg.z = randon.randon()*500
+    return msg
+
+if __name__ == '__main__':
+    global seqNum = 0;
+    try:
+        cellPublish()
+    except rospy.ROSInterruptException:
+        pass
