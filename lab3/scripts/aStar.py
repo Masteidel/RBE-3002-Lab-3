@@ -1,15 +1,14 @@
-
 import rospy, tf, numpy, math, random, Queue
 from kobuki_msgs.msg import BumperEvent
 from std_msgs.msg import String
 from std_msgs.msg import Header
+from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from nav_msgs.msg import GridCells
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Pose
-from geometry_msgs.msg import Twist
 from tf.transformations import euler_from_quaternion
 
 class cell: #stores the probability of the cell being occupied and its f(n) cost
@@ -22,6 +21,8 @@ class cell: #stores the probability of the cell being occupied and its f(n) cost
 
     x = 0 #x position
     y = 0 #y position
+
+    cameFrom = None #previous cell
 
     def __init__(self, probability, xLoc, yLoc):
         prob = probability
@@ -64,7 +65,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #  6 C 2
         #  5 4 3
 
-        children = []#create a list of the childern
+        children = [] #create a list of the childern
 
         try: #the try except is needed because this method will try to call for cells that don't exist
              #this will catch the list index out of range error and ignore it (and skip that non-exitent child)
@@ -109,13 +110,32 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
                     child.g = current.g + 1 #may want to change this to dist fomula later!!!
                     child.h = heuristic(child,goal)
                     child.cost = child.g + child.h #total cost
+                    child.cameFrom = current #obviously we came from the current cell to get to its neighbor
                 
                     openSet.put((child.cost,child)) #add to priority queue
 
+        #display on the grid
+        publishGridCells(openSet,'aStar_Open')
+        publishGridCells(closedSet, 'aStar_Closed')
         #END MAIN WHILE
     print("no solutions exist")
     #END
 
+def cellPath(cell): #takes a cell and returns a list of all the cells leading to it
+    path = []
+    
+    path.append(cell) #start by adding the last cell to the list
+    while cell.cameFrom is not None: #when a cell doesn't have a parent it is the start point
+        path.append(cell.cameFrom) #get a list of all the parents 
+    path.reverse() #reverse the list so that the start node is first
+    
+    return path
+
+def getWaypoints(cells): #takes a list of cells in the order that we wish to visit them and returns a path message
+    #Make the header:
+    #To Do: header stuff
+
+    
 
 def get2DArray(data, width, height): #an absolutely thrilling function to take a 1D array and break
                                      #it into a 2D array (a grid) given a width and height
@@ -139,12 +159,52 @@ def get2DArray(data, width, height): #an absolutely thrilling function to take a
     
     return grid
 
+def publishGridCells(cells,topic):#takes a list of cells and publishes them to a given topic
+    global seqNum
+    pub = rospy.Publisher(topic, GridCells, queue_size=10)
+    
+    #create header:
+    head = Header()
+    head.seq = seqNum
+    seqNum += 1
+    head.stamp = rospy.get_rostime()
+    head.frame_id = "map"
+    
+    points = pointList(cells)#get the points
+    
+    gridCells = GridCells()#create the message
+    #fill the message with the necessary data
+    gridCells.header = head
+    gridCells.cell_width = 1
+    gridCells.cell_height = 1
+    gridCells.cells = points
+        
+def pointList(cells): #creates a list of points from a list of cells
+    points = []
+    for i in cells:
+        points.append(pointFromCell(i))
+
+    return points
+
+def pointFromCell(cell): #creates a point from a cell
+    newPoint = Point()
+
+    newPoint.x = cell.x
+    newPoint.y = cell.y
+    newPoint.z = 0
+    
+    return newPoint
+
+
 # This is the program's main function
 if __name__ == '__main__':
     rospy.init_node('aStar')
 
     map_sub = rospy.Subscriber('/map', OccupancyGrid, getMap, queue_size=1) #get the occupancy grid
     
+    #create the sequence number for the gridcells messages
+    global seqNum
+    seqNum = 0
     # Use this command to make the program wait for some seconds
     rospy.sleep(rospy.Duration(1, 0))
     print "Starting A*"
