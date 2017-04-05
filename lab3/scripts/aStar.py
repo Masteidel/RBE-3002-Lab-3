@@ -1,5 +1,15 @@
 
-import math, Queue
+import rospy, tf, numpy, math, random, Queue
+from kobuki_msgs.msg import BumperEvent
+from std_msgs.msg import String
+from std_msgs.msg import Header
+from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
+from nav_msgs.msg import GridCells
+from geometry_msgs.msg import Point
+from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Pose
+from tf.transformations import euler_from_quaternion
 
 class cell: #stores the probability of the cell being occupied and its f(n) cost
             #also stores the position (assuming origin is at the top left corner)
@@ -18,7 +28,7 @@ class cell: #stores the probability of the cell being occupied and its f(n) cost
         y = yLoc
 
 def heuristic(current,goal): #returns h(n) euclidian distance to goal
-    math.sqrt( ((goal.x-current.x)**2) + ((goal.y-current.y)**2)) ) #distance formula
+    math.sqrt(((goal.x-current.x)**2) + ((goal.y-current.y)**2)) #distance formula
     
 def getMap(msg): #callBack for the map topic
     grid = get2DArray(occGrid.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
