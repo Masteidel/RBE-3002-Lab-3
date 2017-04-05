@@ -3,12 +3,13 @@ import rospy, tf, numpy, math, random, Queue
 from kobuki_msgs.msg import BumperEvent
 from std_msgs.msg import String
 from std_msgs.msg import Header
-from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from nav_msgs.msg import GridCells
+from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Twist
 from tf.transformations import euler_from_quaternion
 
 class cell: #stores the probability of the cell being occupied and its f(n) cost
