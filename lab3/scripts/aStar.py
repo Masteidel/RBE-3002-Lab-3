@@ -43,6 +43,7 @@ def getMap(msg): #callBack for the map topic
     print "Map Received!"
 
 def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start and goal (both cells) 
+    print "Running A*"
     openSet = Queue.PriorityQueue(maxsize=0) #create a set to store all discovered nodes yet to be explored
     closedSet = [] #just a list because all we care about is whether or not something is here already
     
@@ -76,13 +77,16 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         try: #the try except is needed because this method will try to call for cells that don't exist
              #this will catch the list index out of range error and ignore it (and skip that non-exitent child)
             children.append(grid[x][y-1]) #y-1 because origin is at top left
+            print "Child"
         except:
             pass
         try: #child 1
             children.append(grid[x+1][y-1])
+            print "Child"
         except:
             pass
         try: #child 2
+            print "Child"
             children.append(grid[x+1][y])
         except:
             pass
@@ -139,10 +143,13 @@ def callAStar(msg): #takes a goal message
     #the transform array is fine for x and y
     start.x = trans[0]
     start.y = trans[1]
+
+    print("Calling A*")
     
     aStar(grid, start, goal)
 
 def cellPath(cell): #takes a cell and returns a list of all the cells leading to it
+    print "cellPath"
     path = []
     
     path.append(cell) #start by adding the last cell to the list
