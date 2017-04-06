@@ -55,7 +55,8 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
     while (not openSet.empty()):#for as long as unexpanded (but discovered) nodes exist
         
         #update the sets:
-        current = openSet.get() #gets the lowest cost node (based on f(n))
+        temp = openSet.get() #gets the lowest cost node (based on f(n))
+        current = temp[1]
         closedSet.append(current) #put the current node in the set of closed nodes
 
         #are we there yet?!
