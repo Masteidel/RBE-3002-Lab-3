@@ -168,14 +168,14 @@ def callAStar(msg): #takes a goal message
     print offSetX
     print offSetY
     #create a cell for the goal
-    goal = cell(0,round(msg.pose.position.x-offSetX,0),round(msg.pose.position.y-offSetY,0))
+    goal = cell(0,int(round(msg.pose.position.x-offSetX,0)),int(round(msg.pose.position.y-offSetY,0)))
     
     #create a cell for the start
     start = cell(0,0,0)
     (trans,quat) = odom_list.lookupTransform('odom', 'base_footprint', rospy.Time(0))
     #the transform array is fine for x and y
-    start.x = round(trans[0]-offSetX,0) #round to whole number
-    start.y = round(trans[1]-offSetY,0)
+    start.x = int(round(trans[0]-offSetX,0)) #round to whole number
+    start.y = int(round(trans[1]-offSetY,0))
 
     print("Calling A*")
     
