@@ -423,7 +423,7 @@ def get2DArray(data, width, height): #an absolutely thrilling function to take a
         j = 0 #reset index (start at the start of the new row)
 
         while (j < width) and (k < len(data)): #go through a single row
-            #grid[j][i] = cell(data[k], j, i)#creates a cell object
+            grid[j][i] = cell(data[k], j, i)#creates a cell object
             j+=1
             k+=1
 
