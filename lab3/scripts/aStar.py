@@ -74,7 +74,8 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #get all the children:
         x = current.x
         y = current.y
-
+        print x
+        print y
         #its not hugely important, but this is how I'm numbering the childern:
         #  7 0 1
         #  6 C 2
