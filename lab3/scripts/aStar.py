@@ -42,6 +42,11 @@ def getMap(msg): #callBack for the map topic
     global offSetX
     global offSetY
     global resolution
+    
+    print "width"
+    print msg.info.width
+    print "height"
+    print msg.info.height
 
     offSetX = msg.info.origin.position.x
     offSetY = msg.info.origin.position.y
@@ -66,7 +71,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         closedSet.append(current) #put the current node in the set of closed nodes
 
         #are we there yet?!
-        if (current == goal):
+        if (current.x == goal.x) and (current.y == goal.y):
             #yep!
             print "GOOOAAAAL!"
             return #!!!figure out return data!!!
@@ -90,6 +95,8 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         except:
             print "Pass"
             pass
+        print "prob"
+        print grid[x+1][y-1].prob
         try: #child 1
             children.append(grid[x+1][y-1])
             print "Child"
