@@ -62,9 +62,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
     start.h = heuristic(start, goal)#euclidian distance to goal
     start.cost = start.h
     openSet.put((start.cost,start)) #add start to the queue
-    print "Starting XY"
-    print start.x
-    print start.y
+    
     while (not openSet.empty()):#for as long as unexpanded (but discovered) nodes exist
         print "Loop"
         #update the sets:
@@ -81,6 +79,9 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #get all the children:
         x = current.x
         y = current.y
+        print "current xy"
+        print x
+        print y
         #its not hugely important, but this is how I'm numbering the childern:
         #  7 0 1
         #  6 C 2
@@ -155,12 +156,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #publishGridCells(openSet,'aStar_Open')
         publishGridCells(closedSet, 'aStar_Closed')
         #END MAIN WHILE
-    print "final XY"
-    print current.x
-    print current.y
-    print "goal XY"
-    print goal.x
-    print goal.y
+
     print("no solutions exist")
     #END
 
