@@ -74,6 +74,10 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         print "curr XY"
         print current.x
         print current.y
+        
+        print "Goal XY"
+        print goal.x
+        print goal.y
         #are we there yet?!
         if (current.x == goal.x) and (current.y == goal.y):
             #yep!
