@@ -170,6 +170,8 @@ def callAStar(msg): #takes a goal message
     print offSetX
     print offSetY
     #create a cell for the goal
+    print "RAW goal X"
+    print msg.pose.position.x
     goal = cell(0,int(round(msg.pose.position.x-offSetX,0)),int(round(msg.pose.position.y-offSetY,0)))
     
     #create a cell for the start
