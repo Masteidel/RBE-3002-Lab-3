@@ -62,6 +62,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #are we there yet?!
         if (current == goal):
             #yep!
+            print "GOOOAAAAL!"
             return #!!!figure out return data!!!
 
         #get all the children:
@@ -87,28 +88,33 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         except:
             pass
         try: #child 2
-            print "Child"
             children.append(grid[x+1][y])
+            print "Child"
         except:
             pass
         try: #child 3
             children.append(grid[x+1][y+1])
+            print "Child"
         except:
             pass
         try: #child 4
             children.append(grid[x][y+1])
+            print "Child"
         except:
             pass
         try: #child 5
             children.append(grid[x-1][y-1])
+            print "Child"
         except:
             pass
         try: #child 6
             children.append(grid[x-1][y])
+            print "Child"
         except:
             pass
         try: #child 7
             children.append(grid[x-1][y-1])
+            print "Child"
         except:
             pass
         
@@ -136,14 +142,14 @@ def callAStar(msg): #takes a goal message
     global grid
     
     #create a cell for the goal
-    goal = cell(0,msg.pose.position.x,msg.pose.position.y)
+    goal = cell(0,round(msg.pose.position.x,0),round(msg.pose.position.y,0))
     
     #create a cell for the start
     start = cell(0,0,0)
     (trans,quat) = odom_list.lookupTransform('odom', 'base_footprint', rospy.Time(0))
     #the transform array is fine for x and y
-    start.x = trans[0]
-    start.y = trans[1]
+    start.x = round(trans[0],0) #round to whole number
+    start.y = round(trans[1],0)
 
     print("Calling A*")
     
