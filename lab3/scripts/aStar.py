@@ -50,6 +50,7 @@ def getMap(msg): #callBack for the map topic
 
     offSetX = msg.info.origin.position.x
     offSetY = msg.info.origin.position.y
+    resolution = msg.info.resolution
     grid = get2DArray(msg.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
     print "Map Received!"
 
@@ -144,10 +145,10 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         
         #go through all of the children/neighbors:
         for child in children: #make sure to go through everything
-            print "child loop"
             if child not in closedSet: #if the cell isn't already expanded (if it is we ignore it)
                 
                 if (child.prob < 100): #probably not an obstacle (if its an obstacle we ignore it)
+                    print "child loop"
                     child.g = current.g + 1
                     child.h = heuristic(child,goal)
                     child.cost = child.g + child.h #total cost
@@ -443,6 +444,8 @@ def get2DArray(data, width, height): #an absolutely thrilling function to take a
 
 def publishGridCells(cells,topic):#takes a list of cells and publishes them to a given topic
     global seqNum
+    global resolution
+    
     pub = rospy.Publisher(topic, GridCells, queue_size=10)
     
     #create header:
@@ -457,8 +460,8 @@ def publishGridCells(cells,topic):#takes a list of cells and publishes them to a
     gridCells = GridCells()#create the message
     #fill the message with the necessary data
     gridCells.header = head
-    gridCells.cell_width = 1
-    gridCells.cell_height = 1
+    gridCells.cell_width = resolution
+    gridCells.cell_height = resolution
     gridCells.cells = points
 
     pub.publish(gridCells)
