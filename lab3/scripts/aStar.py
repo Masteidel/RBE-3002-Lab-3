@@ -126,7 +126,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
                     openSet.put((child.cost,child)) #add to priority queue
 
         #display on the grid
-        publishGridCells(openSet,'aStar_Open')
+        #publishGridCells(openSet,'aStar_Open')
         publishGridCells(closedSet, 'aStar_Closed')
         #END MAIN WHILE
     print("no solutions exist")
