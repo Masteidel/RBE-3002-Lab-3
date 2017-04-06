@@ -195,6 +195,7 @@ def cellPath(cell): #takes a cell and returns a list of all the cells leading to
     path.append(cell) #start by adding the last cell to the list
     while cell.cameFrom is not None: #when a cell doesn't have a parent it is the start point
         path.append(cell.cameFrom) #get a list of all the parents 
+        cell = cell.cameFrom
     path.reverse() #reverse the list so that the start node is first
     
     return path
