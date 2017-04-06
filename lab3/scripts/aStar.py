@@ -57,12 +57,14 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
     print "Running A*"
     openSet = Queue.PriorityQueue(maxsize=0) #create a set to store all discovered nodes yet to be explored
     closedSet = [] #just a list because all we care about is whether or not something is here already
-    
+     
     start.g = 0 #by definition
     start.h = heuristic(start, goal)#euclidian distance to goal
     start.cost = start.h
     openSet.put((start.cost,start)) #add start to the queue
-    
+    print "Starting XY"
+    print start.x
+    print start.y
     while (not openSet.empty()):#for as long as unexpanded (but discovered) nodes exist
         print "Loop"
         #update the sets:
