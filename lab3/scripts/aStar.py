@@ -79,8 +79,6 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #get all the children:
         x = current.x
         y = current.y
-        print x
-        print y
         #its not hugely important, but this is how I'm numbering the childern:
         #  7 0 1
         #  6 C 2
@@ -92,51 +90,49 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
              #this will catch the list index out of range error and ignore it (and skip that non-exitent child)
             children.append(grid[x][y-1]) #y-1 because origin is at top left
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
-        print "prob"
-        print grid[x+1][y-1].prob
         try: #child 1
             children.append(grid[x+1][y-1])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         try: #child 2
             children.append(grid[x+1][y])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         try: #child 3
             children.append(grid[x+1][y+1])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         try: #child 4
             children.append(grid[x][y+1])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         try: #child 5
             children.append(grid[x-1][y-1])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         try: #child 6
             children.append(grid[x-1][y])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         try: #child 7
             children.append(grid[x-1][y-1])
             print "Child"
-        except:
+        except IndexError:
             print "Pass"
             pass
         
