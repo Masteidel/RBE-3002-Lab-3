@@ -40,6 +40,7 @@ def heuristic(current,goal): #returns h(n) euclidian distance to goal
 def getMap(msg): #callBack for the map topic
     global grid
     grid = get2DArray(occGrid.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
+    print "Map Received!"
 
 def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start and goal (both cells) 
     openSet = Queue.PriorityQueue(maxsize=0) #create a set to store all discovered nodes yet to be explored
