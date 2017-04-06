@@ -78,7 +78,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         if (current.x == goal.x) and (current.y == goal.y):
             #yep!
             print "GOOOAAAAL!"
-            path = getPath(current)
+            path = cellPath(current)
             publishGridCells(path, 'aStar_Closed')
             return #!!!figure out return data!!!
 
