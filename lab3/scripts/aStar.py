@@ -21,8 +21,8 @@ class cell: #stores the probability of the cell being occupied and its f(n) cost
     g = 0 #g(n)
     h = 0 #h(n)
 
-    x = 5 #x position
-    y = 5 #y position
+    x = 0 #x position
+    y = 0 #y position
 
     cameFrom = None #previous cell
 
@@ -428,7 +428,11 @@ def get2DArray(data, width, height): #an absolutely thrilling function to take a
         j = 0 #reset index (start at the start of the new row)
 
         while (j < width) and (k < len(data)): #go through a single row
-            grid[j][i] = cell(data[k], j, i)#creates a cell object
+            #grid[j][i] = cell(data[k], j, i)#creates a cell object
+            grid[j[[i]=cell()
+            grid[j][i].x = j
+            grid[j][i].y = i
+            grid[j][i].prob = data[k]
             j+=1
             k+=1
 
