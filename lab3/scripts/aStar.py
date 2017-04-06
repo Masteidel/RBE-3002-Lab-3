@@ -69,7 +69,10 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         temp = openSet.get() #gets the lowest cost node (based on f(n))
         current = temp[1]
         closedSet.append(current) #put the current node in the set of closed nodes
-
+        
+        print "curr XY"
+        print current.x
+        print current.y
         #are we there yet?!
         if (current.x == goal.x) and (current.y == goal.y):
             #yep!
