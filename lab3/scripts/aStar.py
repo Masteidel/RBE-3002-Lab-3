@@ -70,7 +70,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         temp = openSet.get() #gets the lowest cost node (based on f(n))
         current = temp[1]
         closedSet.append(current) #put the current node in the set of closed nodes
-        path.append(current)
+        #path.append(current)
         print "curr XY"
         print current.x
         print current.y
@@ -78,6 +78,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         if (current.x == goal.x) and (current.y == goal.y):
             #yep!
             print "GOOOAAAAL!"
+            path = cellPath(current)
             publishGridCells(path, 'aStar_Closed')
             return #!!!figure out return data!!!
 
