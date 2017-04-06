@@ -38,8 +38,8 @@ def heuristic(current,goal): #returns h(n) euclidian distance to goal
     math.sqrt(((goal.x-current.x)**2) + ((goal.y-current.y)**2)) #distance formula
     
 def getMap(msg): #callBack for the map topic
+    global grid
     grid = get2DArray(occGrid.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
-    return grid
 
 def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start and goal (both cells) 
     openSet = Queue.PriorityQueue(maxsize=0) #create a set to store all discovered nodes yet to be explored
@@ -126,8 +126,20 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
     print("no solutions exist")
     #END
 
-def callAStar(grid, start, goal):
-    aStar(grid, start, goal)
+def callAStar(msg): #takes a goal message
+    global grid
+    
+    #create a cell for the goal
+    goal = cell(0,msg.pose.position.x,msg.pose.position.y)
+    
+    #create a cell for the start
+    start = cell(0,0,0)
+    (trans,quat) = odom_list.lookupTransform('odom', 'base_footprint', rospy.Time(0))
+        #the transform array is fine for x and y
+        start.x = trans[0]
+        start.y = trans[1]
+    
+        aStar(grid, start, goal)
 
 def cellPath(cell): #takes a cell and returns a list of all the cells leading to it
     path = []
@@ -446,18 +458,17 @@ def timerCallback(event):
 if __name__ == '__main__':
     rospy.init_node('aStar')
 
-    global pub
+    global grid
     global pose
     global odom_tf
     global odom_list
 
-    pub = rospy.Publisher('cmd_vel_mux/input/teleop', Twist, None, queue_size=10) # Publisher for commanding robot motion
     map_sub = rospy.Subscriber('/map', OccupancyGrid, getMap, queue_size=1) #get the occupancy grid
-    rviz_click = rospy.Subscriber('move_base_simple/goal', PoseStamped, navToPose, queue_size=1)
     #start_sub = rospy.Subscriber('', GridCells, callAStar, queue_size=1)
-    goal_sub = rospy.Subscriber('move_base_simple/goal', GridCells, callAStar, queue_size=1)
+    goal_sub = rospy.Subscriber('move_base_simple/goal', PoseStamped, callAStar, queue_size=1)
 
-    odom_list = tf.TransformListener()
+    odom_list = tf.TransformListener() #save the bot's odometry
+
     #create the sequence number for the gridcells messages
     global seqNum
     seqNum = 0
@@ -470,5 +481,4 @@ if __name__ == '__main__':
     odom_list = tf.TransformListener()
     
     while(not rospy.is_shutdown()):
-        rospy.sleep(0.15)
-    
+        pass
