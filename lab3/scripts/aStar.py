@@ -43,8 +43,8 @@ def getMap(msg): #callBack for the map topic
     global offSetY
     global resolution
 
-    offSetX = msg.origin.position.x
-    offSetY = msg.origin.position.y
+    offSetX = msg.info.origin.position.x
+    offSetY = msg.info.origin.position.y
     grid = get2DArray(msg.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
     print "Map Received!"
 
