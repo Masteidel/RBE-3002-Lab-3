@@ -53,7 +53,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
     openSet.put((start.cost,start)) #add start to the queue
     
     while (not openSet.empty()):#for as long as unexpanded (but discovered) nodes exist
-        
+        print "Loop"
         #update the sets:
         temp = openSet.get() #gets the lowest cost node (based on f(n))
         current = temp[1]
@@ -120,7 +120,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         
         #go through all of the children/neighbors:
         for child in children: #make sure to go through everything
-
+            print "child loop"
             if child not in closedSet: #if the cell isn't already expanded (if it is we ignore it)
 
                 if (child.prob < 50): #probably not an obstacle (if its an obstacle we ignore it)
