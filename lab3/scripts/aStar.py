@@ -153,6 +153,12 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         #publishGridCells(openSet,'aStar_Open')
         publishGridCells(closedSet, 'aStar_Closed')
         #END MAIN WHILE
+    print "final XY"
+    print current.x
+    print current.y
+    print "goal XY"
+    print goal.x
+    print goal.y
     print("no solutions exist")
     #END
 
