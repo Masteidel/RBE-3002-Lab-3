@@ -174,7 +174,8 @@ def callAStar(msg): #takes a goal message
     print "RAW goal X"
     print msg.pose.position.x
     goal = cell(0,int(round(msg.pose.position.x-offSetX,0)),int(round(msg.pose.position.y-offSetY,0)))
-    
+    goal.x = int(round(msg.pose.position.x-offSetX,0))
+    goal.y = int(round(msg.pose.position.y-offSetY,0))
     #create a cell for the start
     start = cell(0,0,0)
     (trans,quat) = odom_list.lookupTransform('odom', 'base_footprint', rospy.Time(0))
