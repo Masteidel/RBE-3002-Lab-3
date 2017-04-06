@@ -126,6 +126,9 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
     print("no solutions exist")
     #END
 
+def callAStar(grid, start, goal):
+    aStar(grid, start, goal)
+
 def cellPath(cell): #takes a cell and returns a list of all the cells leading to it
     path = []
     
@@ -451,8 +454,8 @@ if __name__ == '__main__':
     pub = rospy.Publisher('cmd_vel_mux/input/teleop', Twist, None, queue_size=10) # Publisher for commanding robot motion
     map_sub = rospy.Subscriber('/map', OccupancyGrid, getMap, queue_size=1) #get the occupancy grid
     rviz_click = rospy.Subscriber('move_base_simple/goal', PoseStamped, navToPose, queue_size=1)
-    #start_sub = rospy.Subscriber('', GridCells, aStar, queue_size=1)
-    #goal_sub = rospy.Subscriber('', GridCells, aStar, queue_size=1)
+    #start_sub = rospy.Subscriber('', GridCells, callAStar, queue_size=1)
+    goal_sub = rospy.Subscriber('move_base_simple/goal', GridCells, callAStar, queue_size=1)
 
     odom_list = tf.TransformListener()
     #create the sequence number for the gridcells messages
@@ -469,4 +472,3 @@ if __name__ == '__main__':
     while(not rospy.is_shutdown()):
         rospy.sleep(0.15)
     
-
