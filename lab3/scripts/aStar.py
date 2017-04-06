@@ -81,41 +81,49 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
             children.append(grid[x][y-1]) #y-1 because origin is at top left
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 1
             children.append(grid[x+1][y-1])
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 2
             children.append(grid[x+1][y])
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 3
             children.append(grid[x+1][y+1])
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 4
             children.append(grid[x][y+1])
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 5
             children.append(grid[x-1][y-1])
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 6
             children.append(grid[x-1][y])
             print "Child"
         except:
+            print "Pass"
             pass
         try: #child 7
             children.append(grid[x-1][y-1])
             print "Child"
         except:
+            print "Pass"
             pass
         
         #go through all of the children/neighbors:
