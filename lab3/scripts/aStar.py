@@ -373,8 +373,7 @@ def rotate(angle):
 def get2DArray(data, width, height): #an absolutely thrilling function to take a 1D array and break
                                      #it into a 2D array (a grid) given a width and height
 
-    grid = [[0 for row in range(0, width)] for col in range(0, height)] #create the 2D array
-    
+    grid = [[0 for row in range(0, height)] for col in range(0, width)] #create the 2D array
     #create index variable
     i = 0 #index for outer loop (keeps track of the row)
     j = 0 #index for inner loop (keeps track of the column)
@@ -385,7 +384,6 @@ def get2DArray(data, width, height): #an absolutely thrilling function to take a
 
         while (j < width) and (k < len(data)): #go through a single row
             #grid[j][i] = cell(data[k], j, i)#creates a cell object
-            f = data[k]
             j+=1
             k+=1
 
