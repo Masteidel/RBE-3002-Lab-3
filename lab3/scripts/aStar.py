@@ -39,6 +39,12 @@ def heuristic(current,goal): #returns h(n) euclidian distance to goal
     
 def getMap(msg): #callBack for the map topic
     global grid
+    global offSetX
+    global offSetY
+    global resolution
+
+    offSetX = msg.origin.position.x
+    offSetY = msg.origin.position.y
     grid = get2DArray(msg.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
     print "Map Received!"
 
@@ -149,16 +155,18 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
 
 def callAStar(msg): #takes a goal message
     global grid
-    
+    global offSetX
+    global offSetY
+
     #create a cell for the goal
-    goal = cell(0,round(msg.pose.position.x,0),round(msg.pose.position.y,0))
+    goal = cell(0,round(msg.pose.position.x+offSetX,0),round(msg.pose.position.y+offSetY,0))
     
     #create a cell for the start
     start = cell(0,0,0)
     (trans,quat) = odom_list.lookupTransform('odom', 'base_footprint', rospy.Time(0))
     #the transform array is fine for x and y
-    start.x = round(trans[0],0) #round to whole number
-    start.y = round(trans[1],0)
+    start.x = round(trans[0]+offSetX,0) #round to whole number
+    start.y = round(trans[1]+offSetY,0)
 
     print("Calling A*")
     
