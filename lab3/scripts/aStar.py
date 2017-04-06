@@ -74,15 +74,11 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         print "curr XY"
         print current.x
         print current.y
-        
-        print "Goal XY"
-        print goal.x
-        print goal.y
         #are we there yet?!
-        if (current.x == goal.x) and (current.y == goal.y):
-            #yep!
-            print "GOOOAAAAL!"
-            return #!!!figure out return data!!!
+        #if (current.x == goal.x) and (current.y == goal.y):
+        #    #yep!
+        #    print "GOOOAAAAL!"
+        #    return #!!!figure out return data!!!
 
         #get all the children:
         x = current.x
@@ -157,7 +153,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
                     child.h = heuristic(child,goal)
                     child.cost = child.g + child.h #total cost
                     child.cameFrom = current #obviously we came from the current cell to get to its neighbor
-                
+
                     openSet.put((child.cost,child)) #add to priority queue
 
         #display on the grid
@@ -176,8 +172,6 @@ def callAStar(msg): #takes a goal message
     print offSetX
     print offSetY
     #create a cell for the goal
-    print "RAW goal X"
-    print msg.pose.position.x
     goal = cell(0,int(round(msg.pose.position.x-offSetX,0)),int(round(msg.pose.position.y-offSetY,0)))
     goal.x = int(round(msg.pose.position.x-offSetX,0))
     goal.y = int(round(msg.pose.position.y-offSetY,0))
