@@ -380,10 +380,10 @@ def get2DArray(data, width, height): #an absolutely thrilling function to take a
     j = 0 #index for inner loop (keeps track of the column)
     k = 0 #index for data (never gets reset)
 
-    while (i < height): #go through all rows (starting at the top (0,0))
+    while (i < height) and (k < len(data)): #go through all rows (starting at the top (0,0))
         j = 0 #reset index (start at the start of the new row)
 
-        while (j < width): #go through a single row
+        while (j < width) and (k < len(data)): #go through a single row
             grid[j][i] = cell(data[k], i, j)#creates a cell object
             j+=1
             k+=1
