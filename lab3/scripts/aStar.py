@@ -143,7 +143,8 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         for child in children: #make sure to go through everything
             print "child loop"
             if child not in closedSet: #if the cell isn't already expanded (if it is we ignore it)
-
+                print "CHILD PROB:"
+                print child.prob
                 if (child.prob < 50): #probably not an obstacle (if its an obstacle we ignore it)
                     child.g = current.g + 1 #may want to change this to dist fomula later!!!
                     child.h = heuristic(child,goal)
