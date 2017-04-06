@@ -78,6 +78,8 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
         if (current.x == goal.x) and (current.y == goal.y):
             #yep!
             print "GOOOAAAAL!"
+            path = getPath(current)
+            publishGridCells(path, 'aStar_Closed')
             return #!!!figure out return data!!!
 
         #get all the children:
@@ -159,7 +161,7 @@ def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start an
 
         #display on the grid
         #publishGridCells(openSet,'aStar_Open')
-        publishGridCells(closedSet, 'aStar_Closed')
+        #publishGridCells(closedSet, 'aStar_Closed')
         #END MAIN WHILE
 
     print("no solutions exist")
