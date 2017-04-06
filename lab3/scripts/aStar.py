@@ -39,7 +39,7 @@ def heuristic(current,goal): #returns h(n) euclidian distance to goal
     
 def getMap(msg): #callBack for the map topic
     global grid
-    grid = get2DArray(occGrid.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
+    grid = get2DArray(msg.data, msg.info.width, msg.info.height)#get a 2D array version of the grid
     print "Map Received!"
 
 def aStar(grid, start, goal): #takes a grid (2D array of cell objects), start and goal (both cells) 
@@ -136,11 +136,11 @@ def callAStar(msg): #takes a goal message
     #create a cell for the start
     start = cell(0,0,0)
     (trans,quat) = odom_list.lookupTransform('odom', 'base_footprint', rospy.Time(0))
-        #the transform array is fine for x and y
-        start.x = trans[0]
-        start.y = trans[1]
+    #the transform array is fine for x and y
+    start.x = trans[0]
+    start.y = trans[1]
     
-        aStar(grid, start, goal)
+    aStar(grid, start, goal)
 
 def cellPath(cell): #takes a cell and returns a list of all the cells leading to it
     path = []
