@@ -35,7 +35,7 @@ class cell: #stores the probability of the cell being occupied and its f(n) cost
         y = yLoc
 
 def heuristic(current,goal): #returns h(n) euclidian distance to goal
-    math.sqrt(((goal.x-current.x)**2) + ((goal.y-current.y)**2)) #distance formula
+    return int(math.sqrt(((goal.x-current.x)**2) + ((goal.y-current.y)**2))) #distance formula
     
 def getMap(msg): #callBack for the map topic
     global grid
