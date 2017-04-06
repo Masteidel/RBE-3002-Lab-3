@@ -21,8 +21,8 @@ class cell: #stores the probability of the cell being occupied and its f(n) cost
     g = 0 #g(n)
     h = 0 #h(n)
 
-    x = 0 #x position
-    y = 0 #y position
+    x = 5 #x position
+    y = 5 #y position
 
     cameFrom = None #previous cell
 
